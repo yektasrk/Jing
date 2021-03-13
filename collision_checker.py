@@ -11,9 +11,9 @@ class CollisionChecker:
             finger_x = hand_points.multi_hand_landmarks[0].landmark[6].x * MAX_X
             finger_y = hand_points.multi_hand_landmarks[0].landmark[6].y * MAX_Y
             image = cv2.circle(image, (int(finger_x), int(finger_y)), 2, (0, 255, 0), 9)
-            for instrument in instruments.instruments:
-                distance = (((finger_x - instrument.x * MAX_X)**2 + (finger_y - instrument.y * MAX_Y)**2 )**(1/2))
+            for button in instruments.buttons:
+                distance = (((finger_x - button.x * MAX_X)**2 + (finger_y - button.y * MAX_Y)**2 )**(1/2))
                 if distance < 100:
-                    self.player.play(instrument.soundfile)
+                    self.player.play(button.soundfile)
 
         return image

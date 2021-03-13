@@ -1,4 +1,4 @@
-class Instrument:
+class Button:
     def __init__(self, name, x, y, radius, color, soundfile):
         self.name = name
         self.x = x

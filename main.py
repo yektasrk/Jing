@@ -34,7 +34,7 @@ with mp_hands.Hands(
     image = instruments.draw(image)
     image = collisionchecker.check_collision(image, instruments, hand_points)
 
-    cv2.imshow('MediaPipe Hands', image)
+    cv2.imshow('Jing', image)
     if cv2.waitKey(5) & 0xFF == 27:
       break
 
