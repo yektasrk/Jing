@@ -3,7 +3,9 @@ import cv2
 import mediapipe as mp
 from instruments.drums import Drums
 from player import Player
-from variables import MAX_X, MAX_Y, FPS
+from variables import FPS
+from hand import draw_hand
+
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -14,28 +16,30 @@ cap.set(cv2.CAP_PROP_FPS, FPS)
 instruments = Drums()
 player = Player()
 collisionchecker = CollisionChecker(player)
-
-with mp_hands.Hands(
-    min_detection_confidence=0.5,
-    min_tracking_confidence=0.5) as hands:
-  while cap.isOpened():
-    success, image = cap.read()
-    if not success:
-      print("Ignoring empty camera frame.")
-      continue
+overlay = cv2.imread("piano.png")
 
 
-    image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
-    image.flags.writeable = False
-    hand_points = hands.process(image)
-    image.flags.writeable = True
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
+    while cap.isOpened():
+        success, image = cap.read()
+        if not success:
+            print("Ignoring empty camera frame.")
+            continue
 
-    image = instruments.draw(image)
-    image = collisionchecker.check_collision(image, instruments, hand_points)
+        image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
+        image.flags.writeable = False
+        hand_points = hands.process(image)
+        image.flags.writeable = True
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    cv2.imshow('Jing', image)
-    if cv2.waitKey(5) & 0xFF == 27:
-      break
+        image = cv2.addWeighted(image, 1, overlay, 1, 0)
+        image = instruments.draw(image)
+        image = draw_hand(image, hand_points)
+
+        image = collisionchecker.check_collision(image, instruments, hand_points)
+
+        cv2.imshow("Jing", image)
+        if cv2.waitKey(5) & 0xFF == 27:
+            break
 
 cap.release()
