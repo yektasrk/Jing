@@ -25,7 +25,9 @@ class Audio:
         self.port = mido.open_output(fluid_port)
 
     def start_note(self, midi):
-        channel, note, loudness = midi
+        channel, note, loudness, program = midi
+        msg = mido.Message('program_change', program = program, channel = channel)
+        self.port.send(msg)
         msg = mido.Message('note_on', note=note, velocity=loudness)
         self.port.send(msg)
 

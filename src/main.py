@@ -3,6 +3,7 @@ import numpy as np
 
 from hand import Hand
 from config import CAM_URL
+from instruments.drums import Drums
 from instruments.piano import Piano
 from utils import put_over
 from audio import Audio
@@ -10,7 +11,7 @@ import time
 
 
 hand = Hand()
-instrument = Piano()
+instrument = Drums()
 audio = Audio()
 fcount = 0
 t0 = time.time()

@@ -59,9 +59,9 @@ class Piano(Instrument):
                                 if not note_index % 7 in [2, 6]:
                                     print('asghar bia',
                                           BLACK_NOTES[note_index])
-                                    return 0, BLACK_NOTES[note_index] + 24, 64
+                                    return 0, BLACK_NOTES[note_index] + 24, 64, 1
                             elif y > HEIGHT - KEY_HEIGHT:
                                 note_index = int(x * N_KEYS)
                                 print('asghar bia', WHITE_NOTES[note_index])
-                                return 0, WHITE_NOTES[note_index] + 24, 64
+                                return 0, WHITE_NOTES[note_index] + 24, 64, 1
         self.last_pose = pose
