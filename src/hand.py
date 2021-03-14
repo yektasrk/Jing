@@ -51,9 +51,10 @@ def draw_point(hand_landmark, image, index):
     x = int(hand_landmark.landmark[index].x * WIDTH)
     y = int(hand_landmark.landmark[index].y * HEIGHT)
     z = -min(hand_landmark.landmark[index].z, 0)
-    image = cv2.circle(
-        image, (x, y,), int(z * 10), color=(0, 0, 255, 255), thickness=int(z * 10),
-    )
+    image = cv2.putText(image, " %.2f" % (z), (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0, 255))
+    #image = cv2.circle(
+    #    image, (x, y,), int(z * 10), color=(0, 0, 255, 255), thickness=int(z * 10),
+    #)
     return image
 
 
