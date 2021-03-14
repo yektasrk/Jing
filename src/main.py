@@ -11,6 +11,7 @@ import time
 
 hand = Hand()
 instrument = Piano()
+feedback = Feedback()
 audio = Audio()
 fcount = 0
 t0 = time.time()
