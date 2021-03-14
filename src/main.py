@@ -2,21 +2,21 @@ import cv2
 import numpy as np
 
 from hand import Hand
-from config import WIDTH, HEIGHT, FPS
+from config import CAM_URL
 from instruments.piano import Piano
 from utils import put_over
 from audio import Audio
+import time
 
-cap = cv2.VideoCapture(0)
-# TODO get and assert
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
-cap.set(cv2.CAP_PROP_FPS, FPS)
 
 hand = Hand()
 instrument = Piano()
 audio = Audio()
+fcount = 0
+t0 = time.time()
 
+cap = cv2.VideoCapture(CAM_URL)
+cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 while cap.isOpened():
     success, image = cap.read()
     if not success:
@@ -37,7 +37,13 @@ while cap.isOpened():
 
     cv2.imshow("Jing", final_image)
 
-    if cv2.waitKey(5) & 0xFF == 27:  # escape
+    fcount = (fcount + 1)
+    if fcount == 100:
+        print(f"fps: {fcount / (time.time() - t0)}")
+        fcount = 0
+        t0 = time.time()
+
+    if cv2.waitKey(1) & 0xFF == 27:  # escape
         break
 
 audio.end()
