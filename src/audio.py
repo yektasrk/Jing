@@ -4,8 +4,6 @@ import mido
 
 
 class Audio:
-    self.fluid = None
-
     def __init__(self):
         self.fluid = subprocess.Popen(["fluidsynth", "--audio-driver=alsa",
                                        "/usr/share/sounds/sf2/FluidR3_GM.sf2"],
@@ -26,9 +24,10 @@ class Audio:
                 fluid_port = port
         self.port = mido.open_output(fluid_port)
 
-    def start_note(self, channel, note, loudness):
+    def start_note(self, midi):
+        channel, note, loudness = midi
         msg = mido.Message('note_on', note=note, velocity=loudness)
-        self.port(msg)
+        self.port.send(msg)
 
     def stop_note(self, channel):
         pass

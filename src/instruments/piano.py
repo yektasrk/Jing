@@ -38,7 +38,8 @@ class Piano(Instrument):
                             self.z_speed = (relative_z - last_relative_z) * (1 - FORGET_RATE) + \
                                 self.z_speed * FORGET_RATE
 
-                            print('asghar bebin %f, %f' % (relative_z, self.z_speed))
+                            # print('asghar bebin %f, %f' % (relative_z, self.z_speed))
                             if relative_z > 0.0 and self.z_speed > 0.01:
+                                return 0, 25, 64
                                 print('asghar bia')
         self.last_pose = pose
