@@ -27,8 +27,8 @@ else:
 audio = Audio()
 fcount = 0
 t0 = time.time()
-profiler = Profiler()
-profiler.start()
+# profiler = Profiler()
+# profiler.start()
 
 
 cap = cv2.VideoCapture(CAM_URL)
@@ -65,6 +65,6 @@ while cap.isOpened():
 
 audio.end()
 cap.release()
-profiler.stop()
-print(profiler.output_text(unicode=True, color=True))
+# profiler.stop()
+# print(profiler.output_text(unicode=True, color=True))
 
