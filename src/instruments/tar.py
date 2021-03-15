@@ -7,13 +7,14 @@ from config import HEIGHT, WIDTH
 
 FORGET_RATE = 0.3
 COLOR = (0, 204, 204, 255)
+BAR_COLOR = (0, 0, 204, 255)
 THICKNESS = 10
 SPEED_THRESHOLD = 0.06
 START_POINT = (650, 450)
 END_POINT = (50, 200)
 BAR_PORTION = 0.75
 
-notes = [(0, 49, 64, 25), (0, 51, 64, 25), (0, 53, 64, 25), (0, 54, 64, 25), (0, 56(0, 54, 64, 25), 64, 25)]
+notes = [(0, 49, 64, 25), (0, 51, 64, 25), (0, 53, 64, 25), (0, 54, 64, 25), (0, 56, 64, 25)]
 
 
 
@@ -28,7 +29,10 @@ class TAR(Instrument):
         self.last_pose = None
 
     def overlay(self, back_image):
-        self.image = cv2.line(back_image, START_POINT, END_POINT, COLOR, THICKNESS)
+        for i in range(len(notes)):
+            center = (START_POINT[0] - END_POINT[0]) * ( i / len(notes)) + END_POINT[0], (START_POINT[1] - END_POINT[1]) * ( i / len(notes)) + END_POINT[1]
+            self.image = cv2.circle(back_image, (int(center[0]), int(center[1])), THICKNESS, BAR_COLOR, -1)
+        self.image = cv2.line(self.image, START_POINT, END_POINT, COLOR, THICKNESS)
         return self.image
 
     def _line_intersection(self, line1, line2):
@@ -82,7 +86,6 @@ class TAR(Instrument):
             finger_end = pose[hand_index].landmark[8].x * WIDTH, pose[hand_index].landmark[8].y * HEIGHT
             intersection_point = self._line_intersection((START_POINT, END_POINT), (finger_start, finger_end))
             note_index = max(note_index, self._find_note(intersection_point))
-        print(note_index)
         return notes[note_index]
     
         
