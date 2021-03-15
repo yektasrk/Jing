@@ -28,7 +28,7 @@ class Audio:
         channel, note, loudness, program = midi
         msg = mido.Message('program_change', program = program, channel = channel)
         self.port.send(msg)
-        msg = mido.Message('note_on', note=note, velocity=loudness)
+        msg = mido.Message('note_on', note=note, velocity=loudness, channel = channel)
         self.port.send(msg)
 
     def stop_note(self, channel):
