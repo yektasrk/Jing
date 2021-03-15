@@ -68,7 +68,7 @@ class Drums(Instrument):
                     self.z_speed = (z - last_z) * (1 - FORGET_RATE) + self.z_speed * FORGET_RATE
                     speed = (self.x_speed ** 2 + self.y_speed ** 2 + self.z_speed ** 2)**(1/2)
 
-                    if self.z_speed < -SPEED_THRESHOLD:
+                    if self.z_speed > SPEED_THRESHOLD:
                         for i in range(len(centers)):
                             if self._check_circle_collision((x * WIDTH, y * HEIGHT), centers[i], radiuses[i]):
                                 print("played")

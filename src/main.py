@@ -7,6 +7,7 @@ import numpy as np
 from audio import Audio
 from hand import Hand
 from config import INSTRUMENT, CAM_URL, HEIGHT, WIDTH
+from instruments.tar import TAR
 from instruments.drums import Drums
 from instruments.piano import Piano
 from instruments.recorder import Recorder
@@ -18,6 +19,8 @@ if INSTRUMENT.upper() == "PIANO":
     instrument = Piano()
 elif INSTRUMENT.upper() == "DRUMS":
     instrument = Drums()
+elif INSTRUMENT.upper() == "TAR":
+    instrument = TAR()
 else:
     instrument = Recorder()
 feedback = Feedback()
