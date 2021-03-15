@@ -1,14 +1,16 @@
-import cv2
-import numpy as np
-
-from hand import Hand
-from config import CAM_URL
-from instruments.drums import Drums
-from instruments.piano import Piano
-from utils import put_over
-from audio import Audio
+import cProfile
+import re
 import time
 
+import cv2
+import numpy as np
+from audio import Audio
+from config import CAM_URL, HEIGHT, WIDTH
+from hand import Hand
+from instruments.drums import Drums
+from instruments.piano import Piano
+from pyinstrument import Profiler
+from utils import Feedback
 
 hand = Hand()
 instrument = Drums()
@@ -16,6 +18,8 @@ feedback = Feedback()
 audio = Audio()
 fcount = 0
 t0 = time.time()
+profiler = Profiler()
+profiler.start()
 
 cap = cv2.VideoCapture(CAM_URL)
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -30,14 +34,9 @@ while cap.isOpened():
     if midi:
         audio.start_note(midi)
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGRA)
-    hand_image = hand.overlay()
-    instrument_image = instrument.overlay()
-
-    final_image = image
-    final_image = put_over(final_image, instrument_image)
-    final_image = put_over(final_image, hand_image)
-
-    cv2.imshow("Jing", final_image)
+    instrument_image = instrument.overlay(image)
+    hand_image = hand.overlay(instrument_image)
+    cv2.imshow("Jing", hand_image)
 
     fcount = (fcount + 1)
     if fcount == 100:
@@ -50,3 +49,6 @@ while cap.isOpened():
 
 audio.end()
 cap.release()
+profiler.stop()
+print(profiler.output_text(unicode=True, color=True))
+

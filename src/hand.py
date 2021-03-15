@@ -65,8 +65,7 @@ class Hand():
     def start(self):
         pass
 
-    def overlay(self):
-        image = np.zeros((HEIGHT,WIDTH,4), np.uint8)
+    def overlay(self,image):
         if self.last_hands_points:
             for hand in self.last_hands_points:
                 for point in hand_graph:

@@ -1,19 +1,15 @@
 import numpy as np
 import sounddevice as sd
 
+
 class Feedback():
-    def __init__():
+    def __init__(self):
         sd.default.samplerate = 9600
         sd.default.channels = 1
         pass
 
-    def start():
+    def start(self):
         self.recording = sd.rec(int(10 * 9600))
 
-    def get_result():
+    def get_result(self):
         self.recording.wait()
-
-def put_over(image, overlay):
-    alpha = overlay[:, :, 3:] / 255.0
-    image[:, :, :3] = image[:, :, :3] * (1 - alpha) + overlay[:, :, :3] * alpha
-    return image.astype(np.uint8)

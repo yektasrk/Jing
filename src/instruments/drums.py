@@ -17,18 +17,16 @@ bidis = [(0, 25, 64, 117), (0, 64, 64, 116), (0, 49, 64, 115), (0, 49, 64, 114)]
 
 class Drums(Instrument):
     def __init__(self):
-        self.image = np.zeros((HEIGHT, WIDTH, 4), np.uint8)
-        self.image = cv2.circle(self.image, (X_PADDING, Y_PADDING), RADIUS, colors[0], -1)
-        self.image = cv2.circle(self.image, (WIDTH - X_PADDING, Y_PADDING), RADIUS, colors[1], -1)
-        self.image = cv2.circle(self.image, (X_PADDING, HEIGHT - Y_PADDING), RADIUS, colors[2], -1)
-        self.image = cv2.circle(self.image, (WIDTH - X_PADDING, HEIGHT - Y_PADDING), RADIUS, colors[3], -1)
-
-
         self.x_speed = 0
         self.y_speed = 0
         self.last_pose = None
 
-    def overlay(self):
+    def overlay(self, back_image):
+        self.image = back_image
+        self.image = cv2.circle(self.image, (X_PADDING, Y_PADDING), RADIUS, colors[0], -1)
+        self.image = cv2.circle(self.image, (WIDTH - X_PADDING, Y_PADDING), RADIUS, colors[1], -1)
+        self.image = cv2.circle(self.image, (X_PADDING, HEIGHT - Y_PADDING), RADIUS, colors[2], -1)
+        self.image = cv2.circle(self.image, (WIDTH - X_PADDING, HEIGHT - Y_PADDING), RADIUS, colors[3], -1)
         return self.image
 
     def _find_hand_center(self, pose, hand_index):

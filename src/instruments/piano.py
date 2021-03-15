@@ -17,7 +17,11 @@ FORGET_RATE = 0.3
 
 class Piano(Instrument):
     def __init__(self):
-        self.image = np.zeros((HEIGHT, WIDTH, 4), np.uint8)
+        self.z_speed = 0
+        self.last_pose = None
+
+    def overlay(self, back_image):
+        self.image = back_image
         for i in range(N_KEYS):
             self.image[HEIGHT - KEY_HEIGHT:, PADDING + i *
                        KEY_WIDTH:i * KEY_WIDTH + KEY_WIDTH, :] = 255
@@ -28,10 +32,7 @@ class Piano(Instrument):
                 self.image[HEIGHT - KEY_HEIGHT // 2:, PADDING + i * KEY_WIDTH +
                            KEY_WIDTH // 2:i * KEY_WIDTH + KEY_WIDTH + KEY_WIDTH // 2, :3] = 0
 
-        self.z_speed = 0
-        self.last_pose = None
-
-    def overlay(self):
+        
         return self.image
 
     def handle_gesture(self, pose):
