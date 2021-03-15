@@ -17,13 +17,20 @@ class Recorder(Instrument):
         self.param = []
 
     def overlay(self, image):
-        hand_sig = np.array([[t / DURATION * WIDTH, (x * 200) + HEIGHT / 4] for x, t in self.get_signal()], np.int32)
-        hand_sig = hand_sig.reshape((-1, 1, 2))
-        image = cv2.polylines(image, [hand_sig], False, (0, 255, 255), 2)
+        hand_sig = self.get_signal()
+        hand_plot = np.array([[t / DURATION * WIDTH, (x * 200) + HEIGHT / 4] for x, t in hand_sig], np.int32)
+        hand_plot = hand_plot.reshape((-1, 1, 2))
+        image = cv2.polylines(image, [hand_plot], False, (0, 255, 255), 2)
 
-        aud_sig = np.array([[i / DURATION / SAMPLE_RATE * WIDTH, (x * 200) + 3 * HEIGHT / 4] for i, x in enumerate(self.feedback.get_signal())], np.int32)
-        aud_sig = aud_sig.reshape((-1, 1, 2))
-        image = cv2.polylines(image, [aud_sig], False, (255, 255, 0), 2)
+        aud_sig = self.feedback.get_signal()
+        aud_plot = np.array([[i / DURATION / SAMPLE_RATE * WIDTH, (x * 200) + 3 * HEIGHT / 4] for i, x in enumerate(aud_sig)], np.int32)
+        aud_plot = aud_plot.reshape((-1, 1, 2))
+        image = cv2.polylines(image, [aud_plot], False, (255, 255, 0), 2)
+
+        z_pos = np.array([x for x,t in hand_sig if aud_sig[int(t * SAMPLE_RATE)] == 1])
+        z_neg = np.array([x for x,t in hand_sig if aud_sig[int(t * SAMPLE_RATE)] == 0])
+        print(z_pos.mean(), z_pos.std())
+        print(z_neg.mean(), z_neg.std())
         return image
 
     def handle_gesture(self, pose):
