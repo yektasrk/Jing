@@ -23,7 +23,7 @@ elif INSTRUMENT.upper() == "TAR":
     instrument = TAR()
 else:
     instrument = Recorder()
-feedback = Feedback()
+
 audio = Audio()
 fcount = 0
 t0 = time.time()
@@ -35,7 +35,7 @@ cap = cv2.VideoCapture(CAM_URL)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-# feedback.start()
+
 while cap.isOpened():
     success, image = cap.read()
     dim = (WIDTH, HEIGHT)
@@ -49,6 +49,7 @@ while cap.isOpened():
     if midi:
         audio.start_note(midi)
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGRA)
+
     instrument_image = instrument.overlay(image)
     hand_image = hand.overlay(instrument_image)
     cv2.imshow("Jing", hand_image)
