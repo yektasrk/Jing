@@ -22,12 +22,12 @@ class Drums(Instrument):
         self.last_pose = None
 
     def overlay(self, back_image):
-        self.image = back_image
-        self.image = cv2.circle(self.image, (X_PADDING, Y_PADDING), RADIUS, colors[0], -1)
-        self.image = cv2.circle(self.image, (WIDTH - X_PADDING, Y_PADDING), RADIUS, colors[1], -1)
-        self.image = cv2.circle(self.image, (X_PADDING, HEIGHT - Y_PADDING), RADIUS, colors[2], -1)
-        self.image = cv2.circle(self.image, (WIDTH - X_PADDING, HEIGHT - Y_PADDING), RADIUS, colors[3], -1)
-        return self.image
+        rgb_drums = cv2.imread('src/instruments/drums.png')
+        drums = cv2.cvtColor(rgb_drums, cv2.COLOR_RGB2RGBA)
+        dim = (WIDTH, HEIGHT)
+        resized = cv2.resize(drums, dim)
+        dst = cv2.addWeighted(back_image,0.2,resized,1,0)
+        return dst
 
     def _find_hand_center(self, pose, hand_index):
         points_list = [0, 5, 9, 13, 17]
