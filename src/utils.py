@@ -1,15 +1,25 @@
 import numpy as np
-import sounddevice as sd
+import pyaudio
 
+
+CHUNK = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 2
+RATE = 44100
+
+p = pyaudio.PyAudio()
 
 class Feedback():
     def __init__(self):
-        sd.default.samplerate = 9600
-        sd.default.channels = 1
         pass
 
     def start(self):
-        self.recording = sd.rec(int(10 * 9600))
+        stream = p.open(format=FORMAT,
+            channels=CHANNELS,
+            rate=RATE,
+            input=True,
+            frames_per_buffer=CHUNK)
 
     def get_result(self):
-        self.recording.wait()
+        yield stream.read(CHUNK)
+
