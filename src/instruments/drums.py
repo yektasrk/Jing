@@ -7,7 +7,7 @@ from config import HEIGHT, WIDTH
 
 FORGET_RATE = 0.3
 COLOR = (0, 204, 204, 255)
-SPEED_THRESHOLD = 0.04
+SPEED_THRESHOLD = 0.06
 
 #TODO change points with width and height
 centers = [(0.132, 0.677), (0.167, 0.490), (0.208, 0.312), (0.368, 0.219), (0.576, 0.208), (0.764, 0.271), 
@@ -35,12 +35,12 @@ class Drums(Instrument):
         resized = cv2.resize(drums, dim)
         dst = cv2.addWeighted(back_image,0.2,resized,1,0)
         self.image = dst
-        for i in range(len(centers)):
-            self.image = cv2.circle(self.image, (int(centers[i][0]), int(centers[i][1])), int(radiuses[i]), COLOR, -1)
+        # for i in range(len(centers)):
+        #     self.image = cv2.circle(self.image, (int(centers[i][0]), int(centers[i][1])), int(radiuses[i]), COLOR, -1)
         return dst
 
     def _find_hand_center(self, pose, hand_index):
-        points_list = [0, 5, 9, 13, 17]
+        points_list = range(5, 17)
         x = 0
         y = 0
         z = 0
