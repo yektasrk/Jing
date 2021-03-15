@@ -27,11 +27,16 @@ t0 = time.time()
 profiler = Profiler()
 profiler.start()
 
+
 cap = cv2.VideoCapture(CAM_URL)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
 while cap.isOpened():
     success, image = cap.read()
+    dim = (WIDTH, HEIGHT)
+    image = cv2.resize(image, dim)
     if not success:
         print("Ignoring empty camera frame.")
         continue
