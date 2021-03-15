@@ -7,6 +7,7 @@ import numpy as np
 from audio import Audio
 from hand import Hand
 from config import INSTRUMENT, CAM_URL, HEIGHT, WIDTH
+from instruments.tar import TAR
 from instruments.drums import Drums
 from instruments.piano import Piano
 from instruments.recorder import Recorder
@@ -19,13 +20,15 @@ if INSTRUMENT.upper() == "PIANO":
     instrument = Piano()
 elif INSTRUMENT.upper() == "DRUMS":
     instrument = Drums()
+elif INSTRUMENT.upper() == "TAR":
+    instrument = TAR()
 else:
     instrument = Recorder()
 
 fcount = 0
 t0 = time.time()
-profiler = Profiler()
-profiler.start()
+# profiler = Profiler()
+# profiler.start()
 
 
 cap = cv2.VideoCapture(CAM_URL)
@@ -62,6 +65,6 @@ while cap.isOpened():
 
 audio.end()
 cap.release()
-profiler.stop()
-print(profiler.output_text(unicode=True, color=True))
+# profiler.stop()
+# print(profiler.output_text(unicode=True, color=True))
 
