@@ -13,6 +13,7 @@ from instruments.recorder import Recorder
 from pyinstrument import Profiler
 from utils import Feedback
 
+audio = Audio()
 hand = Hand()
 if INSTRUMENT.upper() == "PIANO":
     instrument = Piano()
@@ -21,7 +22,6 @@ elif INSTRUMENT.upper() == "DRUMS":
 else:
     instrument = Recorder()
 
-audio = Audio()
 fcount = 0
 t0 = time.time()
 profiler = Profiler()
