@@ -51,18 +51,12 @@ class Piano(Instrument):
                         self.z_speed = (relative_z - last_relative_z) * (1 - FORGET_RATE) + \
                             self.z_speed * FORGET_RATE
 
-                        # print('asghar bebin %f, %f' % (relative_z, self.z_speed))
                         if relative_z > 0.0 and self.z_speed > 0.01:
-                            print("y", y)
                             if y > HEIGHT - KEY_HEIGHT // 2:
-                                note_index = int(
-                                    (x - 0.5 / N_KEYS) * N_KEYS)
+                                note_index = min(int((x - 0.5 / N_KEYS) * N_KEYS), len(BLACK_NOTES) - 1)
                                 if not note_index % 7 in [2, 6]:
-                                    print('asghar bia',
-                                          BLACK_NOTES[note_index])
                                     return 0, BLACK_NOTES[note_index] + 24, 64, 1
                             elif y > HEIGHT - KEY_HEIGHT:
-                                note_index = int(x * N_KEYS)
-                                print('asghar bia', WHITE_NOTES[note_index])
+                                note_index = min(int(x * N_KEYS), len(WHITE_NOTES) - 1)
                                 return 0, WHITE_NOTES[note_index] + 24, 64, 1
         self.last_pose = pose

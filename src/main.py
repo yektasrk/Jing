@@ -5,16 +5,21 @@ import time
 import cv2
 import numpy as np
 from audio import Audio
-from config import CAM_URL, HEIGHT, WIDTH
 from hand import Hand
+from config import INSTRUMENT, CAM_URL, HEIGHT, WIDTH
 from instruments.drums import Drums
 from instruments.piano import Piano
 from pyinstrument import Profiler
 from utils import Feedback
 
 hand = Hand()
-instrument = Drums()
-feedback = Feedback()
+if INSTRUMENT.upper() == "PIANO":
+    instrument = Piano()
+elif INSTRUMENT.upper() == "DRUMS":
+    instrument = Drums()
+else:
+    instrument = Drums()
+# feedback = Feedback()
 audio = Audio()
 fcount = 0
 t0 = time.time()
