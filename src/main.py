@@ -28,6 +28,7 @@ profiler.start()
 
 cap = cv2.VideoCapture(CAM_URL)
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+# feedback.start()
 while cap.isOpened():
     success, image = cap.read()
     if not success:
