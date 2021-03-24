@@ -37,3 +37,4 @@ python src/main.py
 - [ ] create a webapp
 - [ ] improve gesture detection
 - [ ] add more and more instruments.
+- [ ] a real (stereoscopic) VR experience
