@@ -2,7 +2,7 @@
 
 A prototype of performing instruments in a simple AR environment.
 
-This project was developed during [Sotoon](https://sotoon.ir) Hackathon 1399
+This project was developed during [Sotoon](https://sotoon.ir) Hackathon 1399 and won the best idea award.
 
 ## Demo
 
