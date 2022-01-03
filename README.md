@@ -8,9 +8,9 @@ This project was developed during [Sotoon](https://sotoon.ir) Hackathon 1399 and
 
 What these videos
 
-- [Playing with Piano](https://sesajad.me/box/Piano.mp4)
-- [Playing with Drums](https://sesajad.me/box/Drums.mp4)
-- [Playing with Salar<sup>*</sup>](https://sesajad.me/box/Salar.mp4)
+- [Playing with Piano](https://sesajad.me/box/projects/jing/Piano.mp4)
+- [Playing with Drums](https://sesajad.me/box/projects/jing/Drums.mp4)
+- [Playing with Salar<sup>*</sup>](https://sesajad.me/box/projects/jing/Salar.mp4)
 
 <sup>*</sup>: Salar is a string instrument designed by MohammadAmin Salarkia.
 
